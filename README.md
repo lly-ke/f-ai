@@ -1,5 +1,21 @@
 # 基于PaddleOCR的OCR识别接口
 
+## 已支持的模型
+
+### 文本处理模型
+- ch_pp-ocrv3 ocr文字识别
+- senta_bilstm 情感分析
+- porn_detection_lstm 文本涉黄预测
+
+### 图像处理模型
+
+- face_landmark_localization 人脸关键点检测
+- ultra_light_fast_generic_face_detector_1mb_640 人脸检测
+- chinese_ocr_db_crnn_server CRNN汉字识别
+- chinese_ocr_db_crnn_mobile 轻量级中文OCR
+- chinese_text_detection_db_server 文字位置识别
+- pyramidbox_lite_mobile_mask 口罩检测
+
 ## 使用
 ### 第一种方式
 

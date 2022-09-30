@@ -43,8 +43,6 @@ async def req_face_landmark_localization(request: Request, file: bytes = File(..
     识别输入图片中的所有人脸关键点，每张人脸检测出68个关键点（人脸轮廓17个点，左右眉毛各5个点，左右眼睛各6个点，鼻子9个点，嘴巴20个点）
     - data: 图片中每张人脸的关键点坐标
     """
-    # if os.getenv('F_OCR_ENV') == 'test':
-    #     return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ocr.face_landmark_localization(file)
 
@@ -58,8 +56,6 @@ async def req_ultra_light_fast_generic_face_detector_1mb_640(request: Request, f
     - right (int): 边界框的右下角x坐标
     - bottom (int): 边界框的右下角y坐标
     """
-    # if os.getenv('F_OCR_ENV') == 'test':
-    #     return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ocr.ultra_light_fast_generic_face_detector_1mb_640(file)
 
