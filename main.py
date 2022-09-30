@@ -4,10 +4,11 @@ import ocr
 
 from fastapi import Request, File, FastAPI, Form
 from fastapi.staticfiles import StaticFiles
-from common import image_result_path
+from common import image_result_path, res_error
+import os
 
 app = FastAPI(
-    title='字符识别', version="2022.09.30", description="基于PaddleOCR的OCR识别接口",
+    title='f-ocr', version="2022.09.30", description="基于Paddle的接口",
     terms_of_service="https://github.com/2720851545/f-ocr",
     contact={"name": "llyke", "url": "https://github.com/2720851545", "email": "2720851545@qq.com", },
     license_info={"name": "Apache 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0.html"})
@@ -21,14 +22,44 @@ def read_root():
 
 
 @app.post("/ch_pp-ocrv3", summary="ocr文字识别")
-async def reqch_pp_ocrv3(request: Request, file: bytes = File(...)):
+async def req_ch_pp_ocrv3(request: Request, file: bytes = File(...)):
     """
     识别文本结果，列表中每一个元素为 dict，各字段为：
     - text(str): 识别得到的文本
     - confidence(float): 识别文本结果置信度
     - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为空列表
     """
+    if os.getenv('F_OCR_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
     return ocr.ch_pp_ocrv3(file)
+
+
+@app.post("/chinese_ocr_db_crnn_server", summary="CRNN汉字识别")
+async def req_ch_chinese_ocr_db_crnn_server(request: Request, file: bytes = File(...)):
+    """
+    识别文本结果，列表中每一个元素为 dict，各字段为： 
+    - text(str): 识别得到的文本 
+    - confidence(float): 识别文本结果置信度 
+    - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为[]
+    """
+    if os.getenv('F_OCR_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ocr.chinese_ocr_db_crnn_server(file)
+    
+@app.post("/chinese_ocr_db_crnn_mobile", summary="轻量级中文OCR")
+async def req_ch_chinese_ocr_db_crnn_mobile(request: Request, file: bytes = File(...)):
+    """
+    识别文本结果，列表中每一个元素为 dict，各字段为： 
+    - text(str): 识别得到的文本 
+    - confidence(float): 识别文本结果置信度 
+    - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为[]
+    """
+    if os.getenv('F_OCR_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ocr.chinese_ocr_db_crnn_mobile(file)
 
 
 @app.post("/chinese_text_detection_db_server", summary="文字位置识别")

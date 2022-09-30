@@ -7,6 +7,8 @@ WORKDIR /f_ocr
 # docker build缓存
 COPY ./requirements.txt /f_ocr
 RUN pip install -i https://mirror.baidu.com/pypi/simple -r requirements.txt
+RUN pip install -I shapely pyclipper
+ENV TZ Asia/Shanghai
 # RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 COPY . /f_ocr

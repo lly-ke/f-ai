@@ -13,12 +13,14 @@ services:
       - "8000:8000"
     volumes:
       - /var/local/docker-data/f-ocr/cache:/root/
+    environment:
+      - F_OCR_ENV=test
     deploy:
      resources:
        limits:
-         cpus: '0.7'
-       reservations:
-         cpus: '0.25'
+         cpus: '0.3'
+#       reservations:
+#         cpus: '0.25'
     labels:
       - "traefik.http.routers.f_ocr.rule=Host(`focr.llyke.lol`)"
       - "traefik.http.services.f_ocr.loadbalancer.server.port=8000"
