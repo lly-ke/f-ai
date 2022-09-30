@@ -15,9 +15,21 @@ senta_bilstm_model = hub.Module(name="senta_bilstm")
 chinese_ocr_db_crnn_server_model = hub.Module(name="chinese_ocr_db_crnn_server")
 chinese_ocr_db_crnn_mobile_model = hub.Module(name="chinese_ocr_db_crnn_mobile")
 porn_detection_lstm_model = hub.Module(name="porn_detection_lstm")
+ultra_light_fast_generic_face_detector_1mb_640_model = hub.Module(name="ultra_light_fast_generic_face_detector_1mb_640")
 
 # ocr = hub.Module(name="ch_pp-ocrv3", enable_mkldnn=True)       # mkldnn加速仅在CPU下有效
 
+
+def ultra_light_fast_generic_face_detector_1mb_640(file: bytes):
+    try:
+        result = ultra_light_fast_generic_face_detector_1mb_640_model.face_detection(
+            images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
+            visualization=is_visualization,
+            output_dir=image_result_path + '/ultra_light_fast_generic_face_detector_1mb_640')
+        return res_success(data=result)
+    except Exception as err:
+        print('error', err)
+        return res_error(message=str(err))
 
 def ch_pp_ocrv3(file: bytes):
     try:
