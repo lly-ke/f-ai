@@ -30,7 +30,7 @@ docker-compose build
 ### ui地址
 - swagger ui地址: http://127.0.0.1:8000/docs
 
-- redoc 文档地址: http://127.0.0.1:8000/docs
+- redoc 文档地址: http://127.0.0.1:8000/redoc
 
 
 ### 注意事项

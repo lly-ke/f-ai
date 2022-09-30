@@ -14,7 +14,7 @@ services:
     deploy:
      resources:
        limits:
-         cpus: '0.5'
+         cpus: '0.7'
        reservations:
          cpus: '0.25'
     labels:
