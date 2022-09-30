@@ -1,4 +1,4 @@
-# 基于PaddleOCR的OCR识别接口
+# 基于Paddle的模型接口
 
 ## 已支持的模型
 
