@@ -1,13 +1,13 @@
-# 基于Paddle的模型接口
+# 基于Paddle的web模型接口
 
 ## 已支持的模型
 
-### 文本处理模型
+### ✅  文本处理模型 
 - ch_pp-ocrv3 ocr文字识别
 - senta_bilstm 情感分析
 - porn_detection_lstm 文本涉黄预测
 
-### 图像处理模型
+### ✅  图像处理模型
 
 - face_landmark_localization 人脸关键点检测
 - ultra_light_fast_generic_face_detector_1mb_640 人脸检测
