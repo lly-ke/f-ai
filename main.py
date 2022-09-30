@@ -1,11 +1,12 @@
 # encoding:utf-8
 
-import ocr
+import os
 
 from fastapi import Request, File, FastAPI, Form
 from fastapi.staticfiles import StaticFiles
+
+import ocr
 from common import image_result_path, res_error
-import os
 
 app = FastAPI(
     title='f-ocr', version="2022.09.30", description="基于Paddle的接口",
@@ -47,7 +48,8 @@ async def req_ch_chinese_ocr_db_crnn_server(request: Request, file: bytes = File
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ocr.chinese_ocr_db_crnn_server(file)
-    
+
+
 @app.post("/chinese_ocr_db_crnn_mobile", summary="轻量级中文OCR")
 async def req_ch_chinese_ocr_db_crnn_mobile(request: Request, file: bytes = File(...)):
     """
@@ -84,7 +86,14 @@ async def req_pyramidbox_lite_mobile_mask(request: Request, file: bytes = File(.
 
 
 @app.post("/senta_bilstm", summary="情感分析")
-async def req_senta_bilstm(text: str = Form()):
+async def req_senta_bilstm(texts: str = Form()):
     """
     """
-    return ocr.senta_bilstm(text.splitlines())
+    return ocr.senta_bilstm(texts.splitlines())
+
+
+@app.post("/porn_detection_lstm", summary="文本涉黄预测")
+async def req_porn_detection_lstm(texts: str = Form()):
+    """
+    """
+    return ocr.porn_detection_lstm(texts.splitlines())
