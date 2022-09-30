@@ -9,18 +9,18 @@ import paddlehub as hub
 from common import *
 from common import image_result_path, is_visualization
 
-ch_pp_ocrv3 = hub.Module(name="ch_pp-ocrv3")
-hinese_text_detection_db_server = hub.Module(
+ch_pp_ocrv3_model = hub.Module(name="ch_pp-ocrv3")
+chinese_text_detection_db_server_model = hub.Module(
     name="chinese_text_detection_db_server")
-mask_detector = hub.Module(name="pyramidbox_lite_mobile_mask")
-
+pyramidbox_lite_mobile_mask_model = hub.Module(name="pyramidbox_lite_mobile_mask")
+senta_bilstm_model = hub.Module(name="senta_bilstm")
 
 # ocr = hub.Module(name="ch_pp-ocrv3", enable_mkldnn=True)       # mkldnn加速仅在CPU下有效
 
 
 def ch_pp_ocrv3(file: bytes):
     try:
-        result = ch_pp_ocrv3.recognize_text(
+        result = ch_pp_ocrv3_model.recognize_text(
             images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
             visualization=is_visualization,
             output_dir=image_result_path + '/ch_pp_ocrv3')
@@ -32,7 +32,7 @@ def ch_pp_ocrv3(file: bytes):
 
 def chinese_text_detection_db_server(file: bytes):
     try:
-        result = hinese_text_detection_db_server.detect_text(
+        result = chinese_text_detection_db_server_model.detect_text(
             images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
             visualization=is_visualization,
             output_dir=image_result_path + '/chinese_text_detection_db_server')
@@ -43,10 +43,19 @@ def chinese_text_detection_db_server(file: bytes):
 
 def pyramidbox_lite_mobile_mask(file: bytes):
     try:
-        result = mask_detector.face_detection(
+        result = pyramidbox_lite_mobile_mask_model.face_detection(
             images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
             visualization=is_visualization,
             output_dir=image_result_path + '/pyramidbox_lite_mobile_mask')
+        return res_success(data=result)
+    except Exception as err:
+        return res_error(message=str(err))
+
+def senta_bilstm(texts: str):
+    try:
+        print(senta_bilstm)
+        result = senta_bilstm_model.sentiment_classify(texts=texts,
+                                           use_gpu=False,)
         return res_success(data=result)
     except Exception as err:
         return res_error(message=str(err))
