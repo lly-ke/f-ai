@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  f_ocr:
+    container_name: f_ocr
+    image: 2720851545/f_ocr:20220930
+    build:
+      context: .
+    restart: unless-stopped
+    network_mode: "host"
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+        reservations:
+          cpus: '0.25'
+    labels:
+      - "traefik.http.routers.f_ocr.rule=Host(`focr.llyke.lol`)"
+      - "traefik.http.services.f_ocr.loadbalancer.server.port=8000"
+      - "traefik.http.routers.f_ocr.tls=true"
+      - "traefik.http.routers.f_ocr.entrypoints=websecure"
+      - "traefik.http.routers.f_ocr.tls.certResolver=letsencryptResolver"
+
+      - "traefik.http.routers.f_ocr-https.rule=Host(`focr.llyke.lol`)"
+      - "traefik.http.routers.f_ocr-https.entrypoints=web"
+      - "traefik.http.routers.f_ocr-https.middlewares=http2https"
