@@ -4,7 +4,7 @@ from ocr import img_ocr
 
 from fastapi import Request, File, FastAPI
 
-app = FastAPI(title='字符识别')
+app = FastAPI(title='字符识别',)
 
 
 @app.get("/")

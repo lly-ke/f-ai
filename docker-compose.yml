@@ -6,15 +6,18 @@ services:
     image: 2720851545/f_ocr:20220930
     restart: unless-stopped
     # network_mode: "host"
+    # 容器端口暴露, 右侧为容器端口, 左侧为宿主机端口
     ports:
       - "8000:8000"
     entrypoint: uvicorn main:app --host 0.0.0.0
+    # 资源限制, docker-compose要使用最新版本才支持
     deploy:
       resources:
         limits:
           cpus: '0.8'
         reservations:
           cpus: '0.25'
+    # traefik配置, 没有使用不用理会
     labels:
       - "traefik.http.routers.f_ocr.rule=Host(`focr.llyke.lol`)"
       - "traefik.http.services.f_ocr.loadbalancer.server.port=8000"

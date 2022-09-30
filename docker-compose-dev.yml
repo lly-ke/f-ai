@@ -1,3 +1,5 @@
+# 本地开发测试使用
+
 version: '3'
 
 services:
@@ -10,12 +12,12 @@ services:
     network_mode: "host"
     ports:
       - "8000:8000"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-        reservations:
-          cpus: '0.25'
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '0.5'
+    #     reservations:
+    #       cpus: '0.25'
     labels:
       - "traefik.http.routers.f_ocr.rule=Host(`focr.llyke.lol`)"
       - "traefik.http.services.f_ocr.loadbalancer.server.port=8000"

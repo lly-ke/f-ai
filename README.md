@@ -1,4 +1,4 @@
-# 基于PaddleOCR的OCR识别
+# 基于PaddleOCR的OCR识别接口
 
 ## 使用
 ```bash
