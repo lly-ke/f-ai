@@ -16,10 +16,21 @@ chinese_ocr_db_crnn_server_model = hub.Module(name="chinese_ocr_db_crnn_server")
 chinese_ocr_db_crnn_mobile_model = hub.Module(name="chinese_ocr_db_crnn_mobile")
 porn_detection_lstm_model = hub.Module(name="porn_detection_lstm")
 ultra_light_fast_generic_face_detector_1mb_640_model = hub.Module(name="ultra_light_fast_generic_face_detector_1mb_640")
+face_landmark_localization_model = hub.Module(name="face_landmark_localization")
 
 # ocr = hub.Module(name="ch_pp-ocrv3", enable_mkldnn=True)       # mkldnn加速仅在CPU下有效
 
 
+def face_landmark_localization(file: bytes):
+    try:
+        result = face_landmark_localization_model.keypoint_detection(
+            images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
+            visualization=is_visualization,
+            output_dir=image_result_path + '/face_landmark_localization')
+        return res_success(data=result)
+    except Exception as err:
+        print('error', err)
+        return res_error(message=str(err))
 def ultra_light_fast_generic_face_detector_1mb_640(file: bytes):
     try:
         result = ultra_light_fast_generic_face_detector_1mb_640_model.face_detection(
