@@ -3,8 +3,9 @@
 ## 使用
 ### 第一种方式
 
-- 下载dcoker-compose.yml,保存为docker-compose.yml
-https://raw.githubusercontent.com/2720851545/f-ocr/main/docker-compose.yml
+- 下载docker-compose.yml,保存为docker-compose.yml
+  
+  https://raw.githubusercontent.com/2720851545/f-ocr/main/docker-compose.yml
 
 - 进入docker-compose.yml文件夹,执行
 `docker-compose up -d`

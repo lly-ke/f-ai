@@ -5,9 +5,8 @@ version: '3'
 services:
   f_ocr:
     container_name: f_ocr
+#    build: .
     image: 2720851545/f_ocr:20220930
-    build:
-      context: .
     restart: unless-stopped
     network_mode: "host"
     ports:
