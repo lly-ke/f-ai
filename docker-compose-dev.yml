@@ -11,6 +11,8 @@ services:
     network_mode: "host"
     ports:
       - "8000:8000"
+    volumes:
+      - /var/local/docker-data/f-ocr/cache:/root/
     deploy:
      resources:
        limits:

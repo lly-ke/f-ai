@@ -9,6 +9,9 @@ services:
     # 容器端口暴露, 右侧为容器端口, 左侧为宿主机端口
     ports:
       - "8000:8000"
+    # AI模型缓存
+    volumes:
+      - "./cache:/root/"
     # cpu资源限制, docker-compose要使用最新版本才支持
     deploy:
       resources:
