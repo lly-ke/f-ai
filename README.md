@@ -1,6 +1,16 @@
 # 基于PaddleOCR的OCR识别接口
 
 ## 使用
+### 第一种方式
+
+- 下载dcoker-compose.yml,保存为docker-compose.yml
+https://raw.githubusercontent.com/2720851545/f-ocr/main/docker-compose.yml
+
+- 进入docker-compose.yml文件夹,执行
+`docker-compose up -d`
+
+### 第二种方式
+
 ```bash
 # 拉取仓库代码
 git clone  https://github.com/2720851545/f-ocr.git
