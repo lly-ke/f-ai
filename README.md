@@ -23,6 +23,8 @@ cd f-ocr
 docker-compose up -d
 
 # 修改代码重新构建
+docker-compose up -d --build
+# 或者
 docker-compose build
 ```
 ### ui地址
