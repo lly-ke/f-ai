@@ -24,9 +24,18 @@ docker-compose up -d
 # 修改代码重新构建
 docker-compose build
 ```
+### ui地址
+- swagger ui地址: http://127.0.0.1:8000/docs
 
-本地接口地址: http://127.0.0.1:8000/docs
+- redoc 文档地址: http://127.0.0.1:8000/docs
 
+
+### 注意事项
+
+
+- 必须先安装docker和docker-compose
+
+- docker-compose最好使用最新的, 下载地址: https://github.com/docker/compose/releases
 
 ## 开发说明
 

@@ -10,7 +10,7 @@ services:
     ports:
       - "8000:8000"
     entrypoint: uvicorn main:app --host 0.0.0.0
-    # 资源限制, docker-compose要使用最新版本才支持
+    # cpu资源限制, docker-compose要使用最新版本才支持
     deploy:
       resources:
         limits:
