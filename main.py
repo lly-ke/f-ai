@@ -24,8 +24,8 @@ tags_metadata = [
     },
 ]
 app = FastAPI(
-    title='f-ocr', version="2022.09.30", description="基于Paddle的模型接口",
-    terms_of_service="https://github.com/2720851545/f-ocr",
+    title='f-ai', version="2022.09.30", description="基于Paddle的模型接口",
+    terms_of_service="https://github.com/2720851545/f-ai",
     contact={"name": "llyke", "url": "https://github.com/2720851545", "email": "2720851545@qq.com", },
     license_info={"name": "Apache 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0.html"},
     openapi_tags=tags_metadata, )
@@ -47,7 +47,7 @@ async def req_ch_pp_ocrv3(request: Request, file: bytes = File(...)):
     - confidence(float): 识别文本结果置信度
     - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为空列表
     """
-    if os.getenv('F_OCR_ENV') == 'test':
+    if os.getenv('F-AI_ENV') == 'test':
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ai_modules.ch_pp_ocrv3(file)
@@ -83,7 +83,7 @@ async def req_ch_chinese_ocr_db_crnn_server(request: Request, file: bytes = File
     - confidence(float): 识别文本结果置信度 
     - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为[]
     """
-    if os.getenv('F_OCR_ENV') == 'test':
+    if os.getenv('F-AI_ENV') == 'test':
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ai_modules.chinese_ocr_db_crnn_server(file)
@@ -97,7 +97,7 @@ async def req_ch_chinese_ocr_db_crnn_mobile(request: Request, file: bytes = File
     - confidence(float): 识别文本结果置信度 
     - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为[]
     """
-    if os.getenv('F_OCR_ENV') == 'test':
+    if os.getenv('F-AI_ENV') == 'test':
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ai_modules.chinese_ocr_db_crnn_mobile(file)

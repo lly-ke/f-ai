@@ -1,14 +1,9 @@
-# 基于Paddle的web模型接口
+# f-ai
 
 ## 已支持的模型
 
-### ✅  文本处理模型 
-- ch_pp-ocrv3 ocr文字识别
-- senta_bilstm 情感分析
-- porn_detection_lstm 文本涉黄预测
-
 ### ✅  图像处理模型
-
+- ch_pp-ocrv3 ocr文字识别
 - face_landmark_localization 人脸关键点检测
 - ultra_light_fast_generic_face_detector_1mb_640 人脸检测
 - chinese_ocr_db_crnn_server CRNN汉字识别
@@ -16,12 +11,16 @@
 - chinese_text_detection_db_server 文字位置识别
 - pyramidbox_lite_mobile_mask 口罩检测
 
+### ✅  文本处理模型 
+- senta_bilstm 情感分析
+- porn_detection_lstm 文本涉黄预测
+
 ## 使用
 ### 第一种方式
 
 - 下载docker-compose.yml,保存为docker-compose.yml
   
-  https://raw.githubusercontent.com/2720851545/f-ocr/main/docker-compose.yml
+  https://raw.githubusercontent.com/2720851545/f-ai/main/docker-compose.yml
 
 - 进入docker-compose.yml文件夹,执行
 `docker-compose up -d`
@@ -30,10 +29,10 @@
 
 ```bash
 # 拉取仓库代码
-git clone  https://github.com/2720851545/f-ocr.git
+git clone  https://github.com/2720851545/f-ai.git
 
 # 进入项目文件夹
-cd f-ocr
+cd f-ai
 
 # 运行服务
 docker-compose up -d

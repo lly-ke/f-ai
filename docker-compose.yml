@@ -1,9 +1,9 @@
 version: '3.9'
 
 services:
-  f_ocr:
-    container_name: f_ocr
-    image: 2720851545/f_ocr:20220930
+  f-ai:
+    container_name: f-ai
+    image: 2720851545/f-ai:20220930
     restart: unless-stopped
     # network_mode: "host"
     # 容器端口暴露, 右侧为容器端口, 左侧为宿主机端口
@@ -13,10 +13,10 @@ services:
       # AI模型缓存
       - "./cache:/root/"
       # 图片识别结果保存位置
-      - "./image_visualization:/f_ocr/image_visualization"
+      - "./image_visualization:/f-ai/image_visualization"
     environment:
       - IS_VISUALIZATION=true
-      - IMAGE_RESULT_PATH=/f_ocr/image_visualization
+      - IMAGE_RESULT_PATH=/f-ai/image_visualization
     # cpu资源限制, docker-compose要使用最新版本才支持
     deploy:
       resources:
@@ -26,12 +26,12 @@ services:
           cpus: '0.25'
     # traefik配置, 没有使用不用理会
     labels:
-      - "traefik.http.routers.f_ocr.rule=Host(`focr.llyke.lol`)"
-      - "traefik.http.services.f_ocr.loadbalancer.server.port=8000"
-      - "traefik.http.routers.f_ocr.tls=true"
-      - "traefik.http.routers.f_ocr.entrypoints=websecure"
-      - "traefik.http.routers.f_ocr.tls.certResolver=letsencryptResolver"
+      - "traefik.http.routers.f-ai.rule=Host(`f-ai.llyke.lol`)"
+      - "traefik.http.services.f-ai.loadbalancer.server.port=8000"
+      - "traefik.http.routers.f-ai.tls=true"
+      - "traefik.http.routers.f-ai.entrypoints=websecure"
+      - "traefik.http.routers.f-ai.tls.certResolver=letsencryptResolver"
 
-      - "traefik.http.routers.f_ocr-https.rule=Host(`focr.llyke.lol`)"
-      - "traefik.http.routers.f_ocr-https.entrypoints=web"
-      - "traefik.http.routers.f_ocr-https.middlewares=http2https"
+      - "traefik.http.routers.f-ai-https.rule=Host(`f-ai.llyke.lol`)"
+      - "traefik.http.routers.f-ai-https.entrypoints=web"
+      - "traefik.http.routers.f-ai-https.middlewares=http2https"

@@ -3,14 +3,14 @@ EXPOSE 8000
 # FROM continuumio/anaconda3 
 # RUN pip install  -i https://mirror.baidu.com/pypi/simple paddlehub
 
-WORKDIR /f_ocr
+WORKDIR /f-ai
 # docker build缓存
-COPY ./requirements.txt /f_ocr
+COPY ./requirements.txt /f-ai
 RUN pip install -i https://mirror.baidu.com/pypi/simple -r requirements.txt
 RUN pip install -I shapely pyclipper
 ENV TZ Asia/Shanghai
 # RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
-COPY . /f_ocr
+COPY . /f-ai
 
 ENTRYPOINT python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
