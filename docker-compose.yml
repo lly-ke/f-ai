@@ -17,6 +17,7 @@ services:
     environment:
       - IS_VISUALIZATION=true
       - IMAGE_RESULT_PATH=/f-ai/image_visualization
+      - IS_LAZY_LOAD_MODULES=true
     # cpu资源限制, docker-compose要使用最新版本才支持
     deploy:
       resources:

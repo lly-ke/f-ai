@@ -6,7 +6,7 @@ from fastapi import Request, File, FastAPI, Form
 from fastapi.staticfiles import StaticFiles
 
 from ai_modules import AiModules
-from common import image_result_path, res_error
+from common import image_result_path, res_error, is_lazy_load_modules
 
 
 tags_metadata = [
@@ -32,7 +32,7 @@ app = FastAPI(
 
 app.mount("/static", StaticFiles(directory=image_result_path), name="static")
 
-ai_modules = AiModules()
+ai_modules = AiModules(lazy_load=is_lazy_load_modules)
 
 @app.get("/", summary="首页")
 def read_root():

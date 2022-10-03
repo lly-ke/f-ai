@@ -4,10 +4,15 @@ import os
 import distutils.util
 from fastapi.logger import logger
 
-# 识别结果是否保存
+# 是否延迟加载AI模型
+is_lazy_load_modules = None
+is_lazy_load_modules = distutils.util.strtobool(os.getenv('IS_LAZY_LOAD_MODULES') if os.getenv('IS_LAZY_LOAD_MODULES') else 'false')
+logger.warning('是否延迟加载AI模型: %s', ('延迟加载' if is_lazy_load_modules else '启动加载'))
+
+# 是否保存识别结果图片
 image_result_path = None
 is_visualization = distutils.util.strtobool(os.getenv('IS_VISUALIZATION') if os.getenv('IS_VISUALIZATION') else 'false')
-logger.warning('识别结果图片是否保存: %s', ('保存' if is_visualization else '不保存'))
+logger.warning('是否保存识别结果图片: %s', ('保存' if is_visualization else '不保存'))
 if is_visualization:
     # 图片识别结果保存位置
     image_result_path = os.getenv('IMAGE_RESULT_PATH')
