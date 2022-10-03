@@ -11,7 +11,7 @@ RUN pip install -I shapely pyclipper
 ENV TZ Asia/Shanghai
 # RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
-USER f-ai
+# USER f-ai
 COPY . /f-ai
 
 ENTRYPOINT python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload

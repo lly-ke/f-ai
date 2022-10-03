@@ -13,17 +13,18 @@ class Config:
 
         # 是否保存识别结果图片
         self.is_visualization = distutils.util.strtobool(os.getenv('IS_VISUALIZATION') if os.getenv('IS_VISUALIZATION') else 'false')
-        self.image_result_path = None
+        self.image_result_path = os.getcwd() + '/visualization'
         logger.warning('是否保存识别结果图片: %s', ('保存' if self.is_visualization else '不保存'))
         if self.is_visualization:
             # 图片识别结果保存位置
             self.image_result_path = os.getenv('IMAGE_RESULT_PATH')
+
+            if not self.image_result_path:
+                self.image_result_path = os.getcwd() + '/visualization'
+                
             logger.warning('识别结果图片保存为位置: %s', self.image_result_path)
             if not os.path.exists(self.image_result_path):
                 os.makedirs(self.image_result_path)
-        
-        if not self.image_result_path:
-            self.image_result_path = '/tmp/ocr'
 
 
 def res_data(code=200, data=None, message="success") -> dict:

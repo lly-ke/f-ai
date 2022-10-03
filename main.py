@@ -29,8 +29,6 @@ app = FastAPI(
     license_info={"name": "Apache 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0.html"},
     openapi_tags=tags_metadata, )
 
-app.mount("/static", StaticFiles(directory=config.image_result_path), name="static")
-
 ai_modules = AiModules(lazy_load=config.is_lazy_load_modules)
 
 @app.get("/", summary="首页")
@@ -135,3 +133,6 @@ async def req_porn_detection_lstm(texts: str = Form()):
     """
     """
     return ai_modules.porn_detection_lstm(texts.splitlines())
+
+if __name__ == '__main__':
+    app.mount("/static", StaticFiles(directory=config.image_result_path), name="static")

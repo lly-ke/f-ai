@@ -6,13 +6,14 @@ services:
   f-ai:
     container_name: f-ai
     build: .
-    image: 2720851545/f-ai:20220930
+    image: 2720851545/f-ai:20221003
     restart: unless-stopped
     network_mode: "host"
+    pull_policy: build
     ports:
       - "8000:8000"
     volumes:
-      - /var/local/docker-data/f-ai/cache:/root/
+      - ./cache:/root/
     environment:
       - F-AI_ENV=test
     deploy:
