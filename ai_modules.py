@@ -33,8 +33,9 @@ class AiModules:
                 output_dir=config.image_result_path + '/face_landmark_localization')
             return res_success(data=result)
         except Exception as err:
-            print('error', err)
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
+
     def ultra_light_fast_generic_face_detector_1mb_640(self, file: bytes):
         try:
             result = self.ultra_light_fast_generic_face_detector_1mb_640_model.face_detection(
@@ -43,7 +44,7 @@ class AiModules:
                 output_dir=config.image_result_path + '/ultra_light_fast_generic_face_detector_1mb_640')
             return res_success(data=result)
         except Exception as err:
-            print('error', err)
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
     def ch_pp_ocrv3(self, file: bytes):
@@ -65,7 +66,7 @@ class AiModules:
                 output_dir=config.image_result_path + '/chinese_ocr_db_crnn_server')
             return res_success(data=result)
         except Exception as err:
-            print('error', err)
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
 
@@ -74,7 +75,7 @@ class AiModules:
             result = self.porn_detection_lstm_model.detection(texts=texts)
             return res_success(data=result)
         except Exception as err:
-            print('error', err)
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
     def chinese_ocr_db_crnn_mobile(self, file: bytes):
@@ -85,7 +86,7 @@ class AiModules:
                 output_dir=config.image_result_path + '/chinese_ocr_db_crnn_server')
             return res_success(data=result)
         except Exception as err:
-            print('error', err)
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
 
@@ -97,6 +98,7 @@ class AiModules:
                 output_dir=config.image_result_path + '/chinese_text_detection_db_server')
             return res_success(data=result)
         except Exception as err:
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
 
@@ -108,6 +110,7 @@ class AiModules:
                 output_dir=config.image_result_path + '/pyramidbox_lite_mobile_mask')
             return res_success(data=result)
         except Exception as err:
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
     def senta_bilstm(self, texts: str):
@@ -116,6 +119,7 @@ class AiModules:
                                             use_gpu=False,)
             return res_success(data=result)
         except Exception as err:
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
     def __getattr__(self, name):
