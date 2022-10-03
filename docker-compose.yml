@@ -3,7 +3,7 @@ version: '3.9'
 services:
   f-ai:
     container_name: f-ai
-    image: 2720851545/f-ai:20220930
+    image: 2720851545/f-ai:20221003
     restart: unless-stopped
     # network_mode: "host"
     # 容器端口暴露, 右侧为容器端口, 左侧为宿主机端口

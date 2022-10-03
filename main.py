@@ -6,8 +6,7 @@ from fastapi import Request, File, FastAPI, Form
 from fastapi.staticfiles import StaticFiles
 
 from ai_modules import AiModules
-from common import image_result_path, res_error, is_lazy_load_modules
-
+from common import res_error, config
 
 tags_metadata = [
     {
@@ -30,9 +29,9 @@ app = FastAPI(
     license_info={"name": "Apache 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0.html"},
     openapi_tags=tags_metadata, )
 
-app.mount("/static", StaticFiles(directory=image_result_path), name="static")
+app.mount("/static", StaticFiles(directory=config.image_result_path), name="static")
 
-ai_modules = AiModules(lazy_load=is_lazy_load_modules)
+ai_modules = AiModules(lazy_load=config.is_lazy_load_modules)
 
 @app.get("/", summary="首页")
 def read_root():

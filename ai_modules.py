@@ -6,7 +6,7 @@ import numpy as np
 import paddlehub as hub
 
 from common import *
-from common import image_result_path, is_visualization
+from common import config
 
 class AiModules:
     def __init__(self, lazy_load=False):
@@ -29,8 +29,8 @@ class AiModules:
         try:
             result = self.face_landmark_localization_model.keypoint_detection(
                 images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
-                visualization=is_visualization,
-                output_dir=image_result_path + '/face_landmark_localization')
+                visualization=config.is_visualization,
+                output_dir=config.image_result_path + '/face_landmark_localization')
             return res_success(data=result)
         except Exception as err:
             print('error', err)
@@ -39,8 +39,8 @@ class AiModules:
         try:
             result = self.ultra_light_fast_generic_face_detector_1mb_640_model.face_detection(
                 images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
-                visualization=is_visualization,
-                output_dir=image_result_path + '/ultra_light_fast_generic_face_detector_1mb_640')
+                visualization=config.is_visualization,
+                output_dir=config.image_result_path + '/ultra_light_fast_generic_face_detector_1mb_640')
             return res_success(data=result)
         except Exception as err:
             print('error', err)
@@ -50,19 +50,19 @@ class AiModules:
         try:
             result = self.ch_pp_ocrv3_model.recognize_text(
                 images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
-                visualization=is_visualization,
-                output_dir=image_result_path + '/ch_pp_ocrv3')
+                visualization=config.is_visualization,
+                output_dir=config.image_result_path + '/ch_pp_ocrv3')
             return res_success(data=result)
         except Exception as err:
-            print('error', err)
+            logger.error('',exc_info=True)
             return res_error(message=str(err))
 
     def chinese_ocr_db_crnn_server(self, file: bytes):
         try:
             result = self.chinese_ocr_db_crnn_server_model.recognize_text(
                 images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
-                visualization=is_visualization,
-                output_dir=image_result_path + '/chinese_ocr_db_crnn_server')
+                visualization=config.is_visualization,
+                output_dir=config.image_result_path + '/chinese_ocr_db_crnn_server')
             return res_success(data=result)
         except Exception as err:
             print('error', err)
@@ -81,8 +81,8 @@ class AiModules:
         try:
             result = self.chinese_ocr_db_crnn_mobile_model.recognize_text(
                 images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
-                visualization=is_visualization,
-                output_dir=image_result_path + '/chinese_ocr_db_crnn_server')
+                visualization=config.is_visualization,
+                output_dir=config.image_result_path + '/chinese_ocr_db_crnn_server')
             return res_success(data=result)
         except Exception as err:
             print('error', err)
@@ -93,8 +93,8 @@ class AiModules:
         try:
             result = self.chinese_text_detection_db_server_model.detect_text(
                 images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
-                visualization=is_visualization,
-                output_dir=image_result_path + '/chinese_text_detection_db_server')
+                visualization=config.is_visualization,
+                output_dir=config.image_result_path + '/chinese_text_detection_db_server')
             return res_success(data=result)
         except Exception as err:
             return res_error(message=str(err))
@@ -104,8 +104,8 @@ class AiModules:
         try:
             result = self.pyramidbox_lite_mobile_mask_model.face_detection(
                 images=[cv2.imdecode(np.frombuffer(file, dtype=np.uint8), cv2.IMREAD_COLOR)],
-                visualization=is_visualization,
-                output_dir=image_result_path + '/pyramidbox_lite_mobile_mask')
+                visualization=config.is_visualization,
+                output_dir=config.image_result_path + '/pyramidbox_lite_mobile_mask')
             return res_success(data=result)
         except Exception as err:
             return res_error(message=str(err))
