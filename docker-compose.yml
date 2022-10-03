@@ -9,9 +9,14 @@ services:
     # 容器端口暴露, 右侧为容器端口, 左侧为宿主机端口
     ports:
       - "8000:8000"
-    # AI模型缓存
     volumes:
+      # AI模型缓存
       - "./cache:/root/"
+      # 图片识别结果保存位置
+      - "./image_visualization:/f_ocr/image_visualization"
+    environment:
+      - IS_VISUALIZATION=true
+      - IMAGE_RESULT_PATH=/f_ocr/image_visualization
     # cpu资源限制, docker-compose要使用最新版本才支持
     deploy:
       resources:

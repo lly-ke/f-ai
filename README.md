@@ -43,11 +43,10 @@ docker-compose up -d --build
 # 或者
 docker-compose build
 ```
-### ui地址
+### 暴露地址
 - swagger ui地址: http://127.0.0.1:8000/docs
-
 - redoc 文档地址: http://127.0.0.1:8000/redoc
-
+- 识别结果图片地址: http://127.0.0.1:8000/static/xx/xxx.jpg 
 
 ### 注意事项
 
