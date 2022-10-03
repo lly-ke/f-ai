@@ -15,7 +15,8 @@ services:
     volumes:
       - ./cache:/root/
     environment:
-      - F-AI_ENV=test
+      - F_AI_ENV=test
+      - IS_LAZY_LOAD_MODULES=true
     deploy:
      resources:
        limits:

@@ -44,7 +44,7 @@ async def req_ch_pp_ocrv3(request: Request, file: bytes = File(...)):
     - confidence(float): 识别文本结果置信度
     - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为空列表
     """
-    if os.getenv('F-AI_ENV') == 'test':
+    if os.getenv('F_AI_ENV') == 'test':
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ai_modules.ch_pp_ocrv3(file)
@@ -80,7 +80,7 @@ async def req_ch_chinese_ocr_db_crnn_server(request: Request, file: bytes = File
     - confidence(float): 识别文本结果置信度 
     - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为[]
     """
-    if os.getenv('F-AI_ENV') == 'test':
+    if os.getenv('F_AI_ENV') == 'test':
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ai_modules.chinese_ocr_db_crnn_server(file)
@@ -94,7 +94,7 @@ async def req_ch_chinese_ocr_db_crnn_mobile(request: Request, file: bytes = File
     - confidence(float): 识别文本结果置信度 
     - text_box_position(list): 文本框在原图中的像素坐标，4*2的矩阵，依次表示文本框左下、右下、右上、左上顶点的坐标 如果无识别结果则data为[]
     """
-    if os.getenv('F-AI_ENV') == 'test':
+    if os.getenv('F_AI_ENV') == 'test':
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ai_modules.chinese_ocr_db_crnn_mobile(file)
