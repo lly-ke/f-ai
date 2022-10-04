@@ -6,7 +6,7 @@ from fastapi import Request, File, FastAPI, Form
 from fastapi.staticfiles import StaticFiles
 
 from ai_modules import AiModules
-from common import res_error, config
+from common import res_data, res_error, config, res_success, ndarray_to_base64str
 
 tags_metadata = [
     {
@@ -25,11 +25,14 @@ tags_metadata = [
 app = FastAPI(
     title='f-ai', version="2022.09.30", description="基于Paddle的模型接口",
     terms_of_service="https://github.com/2720851545/f-ai",
-    contact={"name": "llyke", "url": "https://github.com/2720851545", "email": "2720851545@qq.com", },
-    license_info={"name": "Apache 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0.html"},
+    contact={"name": "llyke", "url": "https://github.com/2720851545",
+             "email": "2720851545@qq.com", },
+    license_info={"name": "Apache 2.0",
+                  "url": "https://www.apache.org/licenses/LICENSE-2.0.html"},
     openapi_tags=tags_metadata, )
 
 ai_modules = AiModules(lazy_load=config.is_lazy_load_modules)
+
 
 @app.get("/", summary="首页")
 def read_root():
@@ -50,6 +53,94 @@ async def req_ch_pp_ocrv3(request: Request, file: bytes = File(...)):
     return ai_modules.ch_pp_ocrv3(file)
 
 
+@app.post("/animegan_v2_shinkai_53", tags=["image"], summary="图片转新海诚动漫风格")
+async def req_animegan_v2_shinkai_53(request: Request, file: bytes = File(...)):
+    """
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.animegan_v2_shinkai_53(file)
+
+
+@app.post("/animegan_v2_hayao_99", tags=["image"], summary="图片转宫崎骏动漫风格")
+async def req_animegan_v2_hayao_99(request: Request, file: bytes = File(...)):
+    """
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.animegan_v2_hayao_99(file)
+
+
+@app.post("/UGATIT_100w", tags=["image"], summary="人像动漫化")
+async def req_UGATIT_100w(request: Request, file: bytes = File(...)):
+    """
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.UGATIT_100w(file)
+
+
+@app.post("/Photo2Cartoon", tags=["image"], summary="人像卡通化")
+async def req_Photo2Cartoon(request: Request, file: bytes = File(...)):
+    """
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.Photo2Cartoon(file)
+
+
+@app.post("/U2Net", tags=["image"], summary="前景背景分割")
+async def req_U2Net(request: Request, file: bytes = File(...)):
+    """
+        - mask: 背景图base64。
+        - front: 前景图base64。
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.U2Net(file)
+
+@app.post("/FCN_HRNet_W18_Face_Seg", tags=["image"], summary="人像分割")
+async def req_FCN_HRNet_W18_Face_Seg(request: Request, file: bytes = File(...)):
+    """
+        - mask: 背景图base64。
+        - face: 人像图base64。
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.FCN_HRNet_W18_Face_Seg(file)
+
+@app.post("/ID_Photo_GEN", tags=["image"], summary="证件照生成")
+async def req_ID_Photo_GEN(request: Request, file: bytes = File(...)):
+    """
+        - write: 白底的证件照base64。
+        - blue: 蓝底的证件照base64。
+        - red: 红底的证件照base64。
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.ID_Photo_GEN(file)
+
+
+@app.post("/stgan_bald", tags=["image"], summary="图像生成1年、3年、5年的秃头效果")
+async def req_stgan_bald(request: Request, file: bytes = File(...)):
+    """
+        - data_0: 秃头一年的预测结果图base64。
+        - data_1: 秃头三年的预测结果图base64。
+        - data_2: 秃头五年的预测结果图base64。
+    """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
+
+    return ai_modules.stgan_bald(file)
+
+
 @app.post("/face_landmark_localization", tags=["image"], summary="人脸关键点检测")
 async def req_face_landmark_localization(request: Request, file: bytes = File(...)):
     """
@@ -58,6 +149,7 @@ async def req_face_landmark_localization(request: Request, file: bytes = File(..
     """
 
     return ai_modules.face_landmark_localization(file)
+
 
 @app.post("/ultra_light_fast_generic_face_detector_1mb_640", tags=["image"], summary="人脸检测")
 async def req_ultra_light_fast_generic_face_detector_1mb_640(request: Request, file: bytes = File(...)):
@@ -71,6 +163,7 @@ async def req_ultra_light_fast_generic_face_detector_1mb_640(request: Request, f
     """
 
     return ai_modules.ultra_light_fast_generic_face_detector_1mb_640(file)
+
 
 @app.post("/chinese_ocr_db_crnn_server", tags=["image"], summary="CRNN汉字识别")
 async def req_ch_chinese_ocr_db_crnn_server(request: Request, file: bytes = File(...)):
@@ -108,7 +201,20 @@ async def req_chinese_text_detection_db_server(request: Request, file: bytes = F
     return ai_modules.chinese_text_detection_db_server(file)
 
 
-@app.post("/pyramidbox_lite_mobile_mask", tags=["image"], summary="口罩检测")
+@app.post("/pyramidbox_lite_server_mask", tags=["image"], summary="口罩检测(资源多, 效果较好)")
+async def req_pyramidbox_lite_server_mask(request: Request, file: bytes = File(...)):
+    """
+        - label (str): 识别标签，为 'NO MASK' 或者 'MASK'
+        - confidence (float): 识别的置信度
+        - left (int): 边界框的左上角x坐标
+        - top (int): 边界框的左上角y坐标
+        - right (int): 边界框的右下角x坐标
+        - bottom (int): 边界框的右下角y坐标
+    """
+    return ai_modules.pyramidbox_lite_server_mask(file)
+
+
+@app.post("/pyramidbox_lite_mobile_mask", tags=["image"], summary="口罩检测(资源少, 效果较差)")
 async def req_pyramidbox_lite_mobile_mask(request: Request, file: bytes = File(...)):
     """
         - label (str): 识别标签，为 'NO MASK' 或者 'MASK'
@@ -135,4 +241,5 @@ async def req_porn_detection_lstm(texts: str = Form()):
     return ai_modules.porn_detection_lstm(texts.splitlines())
 
 if __name__ == '__main__':
-    app.mount("/static", StaticFiles(directory=config.image_result_path), name="static")
+    app.mount(
+        "/static", StaticFiles(directory=config.image_result_path), name="static")

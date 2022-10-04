@@ -2,6 +2,7 @@
 
 from distutils.command.config import config
 import os
+import base64, cv2
 import distutils.util
 from fastapi.logger import logger
 
@@ -27,6 +28,11 @@ class Config:
                 os.makedirs(self.image_result_path)
 
 
+def ndarray_to_base64str(arr) -> dict:
+    retval,img_buffer  = cv2.imencode('.png', arr)
+    return 'data:image/png;base64,' + base64.b64encode(img_buffer).decode('utf-8')
+
+    
 def res_data(code=200, data=None, message="success") -> dict:
     return {
         'code': code,

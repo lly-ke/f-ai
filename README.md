@@ -4,16 +4,25 @@
 
 ## 已支持的模型
 
-### ✅  图像处理模型
-- ch_pp-ocrv3 ocr文字识别
+### ✅  图像处理模型POST
+- ch_pp ocrv3 ocr文字识别(推荐)
+- animegan_v2_shinkai_53 图片转新海诚动漫风格
+- animegan_v2_hayao_99 图片转宫崎骏动漫风格
+- UGATIT_100w 人像动漫化
+- Photo2Cartoon 人像卡通化
+- U2Net 前景背景分割
+- FCN_HRNet_W18_Face_Seg 人像分割
+- ID_Photo_GEN 证件照生成
+- stgan_bald 图像生成1年、3年、5年的秃头效果
 - face_landmark_localization 人脸关键点检测
 - ultra_light_fast_generic_face_detector_1mb_640 人脸检测
 - chinese_ocr_db_crnn_server CRNN汉字识别
 - chinese_ocr_db_crnn_mobile 轻量级中文OCR
 - chinese_text_detection_db_server 文字位置识别
-- pyramidbox_lite_mobile_mask 口罩检测
+- pyramidbox_lite_server_mask 口罩检测(资源多, 效果较好)
+- pyramidbox_lite_mobile_mask 口罩检测(资源少, 效果较差)
 
-### ✅  文本处理模型 
+## ✅  文本处理模型 
 - senta_bilstm 情感分析
 - porn_detection_lstm 文本涉黄预测
 
