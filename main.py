@@ -104,6 +104,7 @@ async def req_U2Net(request: Request, file: bytes = File(...)):
 
     return ai_modules.U2Net(file)
 
+
 @app.post("/FCN_HRNet_W18_Face_Seg", tags=["image"], summary="人像分割")
 async def req_FCN_HRNet_W18_Face_Seg(request: Request, file: bytes = File(...)):
     """
@@ -114,6 +115,7 @@ async def req_FCN_HRNet_W18_Face_Seg(request: Request, file: bytes = File(...)):
         return res_error(message='服务器顶不住, 请本地运行测试😁')
 
     return ai_modules.FCN_HRNet_W18_Face_Seg(file)
+
 
 @app.post("/ID_Photo_GEN", tags=["image"], summary="证件照生成")
 async def req_ID_Photo_GEN(request: Request, file: bytes = File(...)):
@@ -239,6 +241,46 @@ async def req_porn_detection_lstm(texts: str = Form()):
     """
     """
     return ai_modules.porn_detection_lstm(texts.splitlines())
+
+
+@app.post("/ernie_gen_lover_words", tags=["text"], summary="情话生成")
+async def req_ernie_gen_lover_words(texts: str = Form(), beam_width: int = Form(5)):
+    """
+    - beam_width: 生成文本条数, 默认为5条
+
+    输入情话开头(换行分隔)，输出情话下文
+    """
+    return ai_modules.ernie_gen_lover_words(texts.splitlines(), beam_width)
+
+
+@app.post("/ernie_gen_poetry", tags=["text"], summary="诗歌生成")
+async def req_ernie_gen_poetry(texts: str = Form(), beam_width: int = Form(5)):
+    """
+    beam_width: 生成文本条数, 默认为5条
+
+    输入诗歌开头(换行分隔)，输出诗歌下文
+    """
+    return ai_modules.ernie_gen_poetry(texts.splitlines(), beam_width)
+
+
+@app.post("/ernie_gen_couplet", tags=["text"], summary="对联生成")
+async def req_ernie_gen_couplet(texts: str = Form(), beam_width: int = Form(5)):
+    """
+    - beam_width: 生成文本条数, 默认为5条
+
+    输入上联文本(换行分隔)，输出下联文本
+    """
+    return ai_modules.ernie_gen_couplet(texts.splitlines(), beam_width)
+
+
+@app.post("/ernie_vilg", tags=["text"], summary="文图生成, 生成文本描述内容的图像")
+async def req_ernie_vilg(texts: str = Form(), style: str = Form('油画'), topk: int = Form(1)):
+    """
+    - texts: 输入的语句，描述想要生成的图像的内容(换行分隔)
+    - style: 生成图像的风格，当前支持'油画','水彩','粉笔画','卡通','儿童画','蜡笔画','探索无限', 默认为'油画'
+    - topk: 生成多少张图，最多生成6张, 默认为1条
+    """
+    return ai_modules.ernie_vilg(texts.splitlines(), style, topk)
 
 if __name__ == '__main__':
     app.mount(

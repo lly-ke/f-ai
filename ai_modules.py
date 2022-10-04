@@ -6,7 +6,7 @@ import numpy as np
 import paddlehub as hub
 
 from common import *
-from common import config
+from common import config, pil_image_to_base64str, ndarray_to_base64str
 
 
 class AiModules:
@@ -39,10 +39,20 @@ class AiModules:
                 name="chinese_ocr_db_crnn_mobile")
             self.porn_detection_lstm_model = hub.Module(
                 name="porn_detection_lstm")
+            self.ernie_gen_lover_words_model = hub.Module(
+                name="ernie_gen_lover_words")
             self.ultra_light_fast_generic_face_detector_1mb_640_model = hub.Module(
                 name="ultra_light_fast_generic_face_detector_1mb_640")
             self.face_landmark_localization_model = hub.Module(
                 name="face_landmark_localization")
+            self.ernie_gen_lover_words_model = hub.Module(
+                name="ernie_gen_lover_words")
+            self.ernie_gen_poetry_model = hub.Module(
+                name="ernie_gen_poetry")
+            self.ernie_gen_couplet_model = hub.Module(
+                name="ernie_gen_couplet")
+            self.ernie_vilg_model = hub.Module(
+                name="ernie_vilg")
 
             # ocr = hub.Module(name="ch_pp-ocrv3", enable_mkldnn=True)       # mkldnn加速仅在CPU下有效
 
@@ -220,6 +230,33 @@ class AiModules:
             logger.error('', exc_info=True)
             return res_error(message=str(err))
 
+    def ernie_gen_lover_words(self, texts: str, beam_width):
+        try:
+            result = self.ernie_gen_lover_words_model.generate(
+                texts=texts, beam_width=beam_width)
+            return res_success(data=result)
+        except Exception as err:
+            logger.error('', exc_info=True)
+            return res_error(message=str(err))
+
+    def ernie_gen_poetry(self, texts: str, beam_width):
+        try:
+            result = self.ernie_gen_poetry_model.generate(
+                texts=texts, beam_width=beam_width)
+            return res_success(data=result)
+        except Exception as err:
+            logger.error('', exc_info=True)
+            return res_error(message=str(err))
+
+    def ernie_gen_couplet(self, texts: str, beam_width):
+        try:
+            result = self.ernie_gen_couplet_model.generate(
+                texts=texts, beam_width=beam_width)
+            return res_success(data=result)
+        except Exception as err:
+            logger.error('', exc_info=True)
+            return res_error(message=str(err))
+
     def chinese_ocr_db_crnn_mobile(self, file: bytes):
         try:
             result = self.chinese_ocr_db_crnn_mobile_model.recognize_text(
@@ -277,11 +314,22 @@ class AiModules:
             logger.error('', exc_info=True)
             return res_error(message=str(err))
 
+    def ernie_vilg(self, texts: str, style: str, topk: int):
+        try:
+            result = self.ernie_vilg_model.generate_image(text_prompts=texts, style=style, topk=topk, visualization=config.is_visualization,
+                                                          output_dir=config.image_result_path + '/ernie_vilg')
+            l = [pil_image_to_base64str(i) for i in result]
+            return res_success(data=l)
+        except Exception as err:
+            logger.error('', exc_info=True)
+            return res_error(message=str(err))
+
     def __getattr__(self, name):
         if ((name in dir(self)) == False) and name.endswith('_model'):
             model_name = name[::-1].replace('_model'[::-1], '', 1)[::-1]
-            logger.warn('加载%s模型', model_name)
+            logger.warn('开始加载%s模型', model_name)
             self.__setattr__(name, hub.Module(name=model_name))
+            logger.warn('成功加载%s模型', model_name)
         return self.__getattribute__(name)
 
 
