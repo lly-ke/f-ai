@@ -25,6 +25,10 @@
 ## ✅  文本处理模型 
 - senta_bilstm 情感分析
 - porn_detection_lstm 文本涉黄预测
+- ernie_gen_lover_words 情话生成
+- ernie_gen_poetry 诗歌生成
+- ernie_gen_couplet 对联生成
+- ernie_vilg 文图生成, 生成文本描述内容的图像
 
 ## 使用
 ### 第一种方式
