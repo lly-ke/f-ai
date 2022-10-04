@@ -4,6 +4,7 @@ import os
 
 from fastapi import Request, File, FastAPI, Form
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
 from ai_modules import AiModules
 from common import res_data, res_error, config, res_success, ndarray_to_base64str
@@ -34,9 +35,14 @@ app = FastAPI(
 ai_modules = AiModules(lazy_load=config.is_lazy_load_modules)
 
 
-@app.get("/", summary="首页")
+@app.get("/", summary="首页", response_class=HTMLResponse)
 def read_root():
-    return '基于百度飞浆的人工智障服务'
+    return """
+    <html>
+        <h3>基于百度飞浆的人工智障服务</h3>
+        <a href="https://f-ai-production.up.railway.app/docs">跳转官方文档</a>
+    </html>
+    """
 
 
 @app.post("/ch_pp-ocrv3", tags=["image"], summary="ocr文字识别(推荐)")
