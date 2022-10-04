@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from fastapi.logger import logger
-import cv2
+import cv2, time
 import numpy as np
 import paddlehub as hub
 
@@ -12,6 +12,8 @@ from common import config, pil_image_to_base64str, ndarray_to_base64str
 class AiModules:
     def __init__(self, lazy_load=False):
         if lazy_load == False:
+            start = time.perf_counter()
+
             self.ch_pp_ocrv3_model = hub.Module(name="ch_pp-ocrv3")
             self.chinese_text_detection_db_server_model = hub.Module(
                 name="chinese_text_detection_db_server")
@@ -53,6 +55,10 @@ class AiModules:
                 name="ernie_gen_couplet")
             self.ernie_vilg_model = hub.Module(
                 name="ernie_vilg")
+
+            
+            end = time.perf_counter()
+            logger.warn("所有AI模型加载用时 : %.2fs"%(end - start))
 
             # ocr = hub.Module(name="ch_pp-ocrv3", enable_mkldnn=True)       # mkldnn加速仅在CPU下有效
 

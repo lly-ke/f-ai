@@ -1,6 +1,8 @@
 # AI模型http接口
 
-官方示例: https://f-ai-production.up.railway.app/docs
+- 官方示例: https://f-ai-production.up.railway.app/docs
+
+- Apifox文档: https://www.apifox.cn/apidoc/shared-93cacff0-0ba9-467a-8c57-57680eeab8cb
 
 ## 已支持的模型
 
@@ -68,6 +70,8 @@ docker-compose build
 - 必须先安装docker和docker-compose
 
 - docker-compose最好使用最新的, 下载地址: https://github.com/docker/compose/releases
+
+- 多个模型不支持同时并发访问, 请分开使用
 
 ## 开发说明
 
