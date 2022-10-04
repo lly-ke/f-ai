@@ -255,6 +255,8 @@ def req_ernie_gen_lover_words(texts: str = Form(), beam_width: int = Form(5)):
 
     输入情话开头(换行分隔)，输出情话下文
     """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
     return ai_modules.ernie_gen_lover_words(texts.splitlines(), beam_width)
 
 
@@ -265,6 +267,8 @@ def req_ernie_gen_poetry(texts: str = Form(), beam_width: int = Form(5)):
 
     输入诗歌开头(换行分隔)，输出诗歌下文
     """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
     return ai_modules.ernie_gen_poetry(texts.splitlines(), beam_width)
 
 
@@ -275,6 +279,8 @@ def req_ernie_gen_couplet(texts: str = Form(), beam_width: int = Form(5)):
 
     输入上联文本(换行分隔)，输出下联文本
     """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
     return ai_modules.ernie_gen_couplet(texts.splitlines(), beam_width)
 
 
@@ -285,6 +291,8 @@ def req_ernie_vilg(texts: str = Form(), style: str = Form('油画'), topk: int =
     - style: 生成图像的风格，当前支持'油画','水彩','粉笔画','卡通','儿童画','蜡笔画','探索无限', 默认为'油画'
     - topk: 生成多少张图，最多生成6张, 默认为1条
     """
+    if os.getenv('F_AI_ENV') == 'test':
+        return res_error(message='服务器顶不住, 请本地运行测试😁')
     return ai_modules.ernie_vilg(texts.splitlines(), style, topk)
 
 if __name__ == '__main__':
