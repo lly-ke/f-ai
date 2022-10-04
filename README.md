@@ -1,5 +1,7 @@
 # AI模型http接口
 
+官方示例: https://f-ai-production.up.railway.app/docs
+
 ## 已支持的模型
 
 ### ✅  图像处理模型
@@ -70,7 +72,13 @@ pip install -f requirements.txt
 ### 开发注意事项
 
 pip安包可能会提示已存在，可以使用
+
 ```bash
 pip install 包名 --target=第三方包目录
 # 例如
 pip install fastapi --target=/usr/local/anaconda3/envs/paddle_env/lib/python3.8/site-packages
+```
+
+
+## 社区
+- Discord: https://discord.gg/yzfKySW2zx
