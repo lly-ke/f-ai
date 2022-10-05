@@ -3,9 +3,11 @@
 import os
 import json
 
-from fastapi import FastAPI, Request, Depends, HTTPException
-from fastapi.responses import HTMLResponse, Response
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, Response, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from f_ai.common import config, res_error
 
 from f_ai.routers.index import index_router
@@ -25,6 +27,7 @@ tags_metadata = [
     },
 ]
 app = FastAPI(
+    debug=False,
     title='f-ai', version="2022.09.30", description="基于Paddle的模型接口",
     terms_of_service="https://github.com/2720851545/f-ai",
     contact={"name": "llyke", "url": "https://github.com/2720851545",
@@ -35,7 +38,7 @@ app = FastAPI(
 
 
 @app.middleware("http")
-async def db_session_middleware(request: Request, call_next):
+async def global_middleware(request: Request, call_next):
 
     if request.url.path.startswith("/api/") and os.getenv('F_AI_ENV') == 'test':
         return Response(
@@ -48,6 +51,14 @@ async def db_session_middleware(request: Request, call_next):
 
     return response
 
+
+@app.exception_handler(StarletteHTTPException)
+async def validation_exception_handler(request, err):
+    return JSONResponse(res_error(message=err.detail))
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, err: RequestValidationError):
+    return JSONResponse(res_error(err.errors()))
 
 @app.get("/", summary="首页", response_class=HTMLResponse)
 def read_root():

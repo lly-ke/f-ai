@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, File, FastAPI, Form
 from f_ai.ai_modules import AiModules
-from f_ai.common import  config
+from f_ai.common import  config, res_error
 
 index_router = r = APIRouter()
 ai_modules = AiModules(lazy_load=config.is_lazy_load_modules)
