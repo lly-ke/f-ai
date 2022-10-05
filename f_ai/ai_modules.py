@@ -5,8 +5,8 @@ import cv2, time
 import numpy as np
 import paddlehub as hub
 
-from common import *
-from common import config, pil_image_to_base64str, ndarray_to_base64str
+from f_ai.common import *
+from f_ai.common import config, pil_image_to_base64str, ndarray_to_base64str
 
 
 class AiModules:
